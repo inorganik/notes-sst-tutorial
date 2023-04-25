@@ -7,7 +7,8 @@ export function ApiStack({ stack, app }: StackContext) {
   // Create the API
   const api = new Api(stack, "Api", {
     defaults: {
-      function: {
+      authorizer: "iam",
+      function: {  
         bind: [table],
       },
     },
