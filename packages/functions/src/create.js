@@ -1,10 +1,11 @@
 import * as uuid from "uuid";
 import AWS from "aws-sdk";
 import { Table } from "sst/node/table";
+import handler from "@notes/core/handler";
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-export async function handler(event) {
+export const main = handler(async (event) => {
   // Request body is passed in as a JSON encoded string in 'event.body'
   console.log('hit main');
   const data = JSON.parse(event.body);
@@ -13,7 +14,7 @@ export async function handler(event) {
     TableName: Table['Notes'].tableName,
     Item: {
       // The attributes of the item to be created
-      userId: "123", // The id of the author
+      userId: event.requestContext.authorizer.iam.cognitoIdentity.identityId,
       noteId: uuid.v1(), // A unique uuid
       content: data.content, // Parsed from request body
       attachment: data.attachment, // Parsed from request body
@@ -34,4 +35,5 @@ export async function handler(event) {
       body: JSON.stringify({ error: e.message }),
     };
   }
-}
+});
+
