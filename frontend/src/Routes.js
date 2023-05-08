@@ -4,6 +4,7 @@ import Home from "./containers/Home";
 import NotFound from "./containers/NotFound";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
+import NewNote from "./containers/NewNote";
 
 export default function Links() {
   return (
@@ -11,6 +12,7 @@ export default function Links() {
       <Route path="/" exact element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/notes/new" element={<NewNote />} />
       { /* catch all 404 route */ }
       <Route path="*" element={<NotFound />} />;
     </Routes>
