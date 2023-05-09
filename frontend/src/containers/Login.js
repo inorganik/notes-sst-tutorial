@@ -5,7 +5,6 @@ import LoaderButton from "../components/LoaderButton";
 import "./Login.css";
 import { Auth } from "aws-amplify";
 import { useAppContext } from "../lib/contextLib";
-import { useNavigate } from "react-router-dom";
 import { onError } from "../lib/errorLib";
 
 
@@ -13,7 +12,6 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { userHasAuthenticated } = useAppContext();
-  const nav = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   function validateForm() {
@@ -28,7 +26,6 @@ export default function Login() {
     try {
       await Auth.signIn(email, password);
       userHasAuthenticated(true);
-      nav("/");
     } catch (e) {
       onError(e);
     }
